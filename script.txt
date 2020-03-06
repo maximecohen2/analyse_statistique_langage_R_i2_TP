@@ -1,0 +1,19 @@
+ventes <- read.csv("ventes.csv")
+ventes <- subset(ventes, select = c(Region, ProduitsFrais, Lait, Epicerie, Surgele, Detergents, Traiteur))
+ventes$Total <- ventes$ProduitsFrais + ventes$Lait + ventes$Epicerie + ventes$Surgele + ventes$Detergents + ventes$Traiteur
+ventes$PourcentageProduitsFrais <- round((ventes$ProduitsFrais/ventes$Total)*100)
+ventes$PourcentageLait <- round((ventes$Lait/ventes$Total)*100)
+ventes$PourcentageEpicerie <- round((ventes$Epicerie/ventes$Total)*100)
+ventes$PourcentageSurgele <- round((ventes$Surgele/ventes$Total)*100)
+ventes$PourcentageDetergents <- round((ventes$Detergents/ventes$Total)*100)
+ventes$PourcentageTraiteur <- round((ventes$Traiteur/ventes$Total)*100)
+write.csv2(ventes, file = "TPR.csv")
+
+ventesRegion1 <- ventes[ventes$Region == 1, "Total"]
+print( paste("CA Total moyen Region 1 : ", mean(ventesRegion1), "euros"), quote = FALSE)
+
+ventesRegion2 <- ventes[ventes$Region == 2, "Total"]
+print( paste("CA Total moyen Region 2 : ", mean(ventesRegion2), "euros"), quote = FALSE)
+
+ventesRegion3 <- ventes[ventes$Region == 3, "Total"]
+print( paste("CA Total moyen Region 2 : ", mean(ventesRegion3), "euros"), quote = FALSE)
