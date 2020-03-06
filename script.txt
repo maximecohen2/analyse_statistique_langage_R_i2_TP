@@ -17,3 +17,32 @@ print( paste("CA Total moyen Region 2 : ", mean(ventesRegion2), "euros"), quote 
 
 ventesRegion3 <- ventes[ventes$Region == 3, "Total"]
 print( paste("CA Total moyen Region 2 : ", mean(ventesRegion3), "euros"), quote = FALSE)
+
+
+//Partie 2
+cor(ventes$ProduitsFrais, ventes$Lait, use="complete.obs")
+cor(ventes$ProduitsFrais, ventes$Epicerie, use="complete.obs")
+cor(ventes$ProduitsFrais, ventes$Surgele, use="complete.obs")
+cor(ventes$ProduitsFrais, ventes$Detergents, use="complete.obs")
+cor(ventes$ProduitsFrais, ventes$Traiteur, use="complete.obs")
+cor(ventes$Epicerie, ventes$Surgele, use="complete.obs")
+cor(ventes$Epicerie, ventes$Detergents, use="complete.obs")
+cor(ventes$Epicerie, ventes$Traiteur, use="complete.obs")
+cor(ventes$Surgele, ventes$Detergents, use="complete.obs")
+cor(ventes$Surgele, ventes$Traiteur, use="complete.obs")
+cor(ventes$Detergents, ventes$Traiteur, use="complete.obs")
+
+print(paste("La paire de variables ayant le meilleur coéfficient de corrélation linéaire est Epicerie et Detergents avec ",  cor(ventes$Epicerie, ventes$Detergents, use="complete.obs")), quote=FALSE)
+
+reg1 <- lm(ventes$Epicerie ~ ventes$Detergents, data = ventes)
+reg2 <- lm(ventes$Detergents ~ ventes$Epicerie, data = ventes)
+reg1
+reg2
+
+EpiceriePredict <- 2640.773 + 1.843 * mean(ventes$Detergents)
+EpiceriePredict
+DetergentsPredict <- -807.1336 + 0.4639 * mean(ventes$Epicerie)
+DetergentsPredict
+
+plot(ventes$Epicerie, ventes$Detergents, xlab = "ventes Epicerie", ylab = "ventes Detergents")
+abline(reg2)
